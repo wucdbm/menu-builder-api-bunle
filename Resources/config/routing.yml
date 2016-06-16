@@ -1,0 +1,5 @@
+wucdbm_menu_builder_api_menu_get:
+    path:        /{_locale}/{id}/get.json
+    defaults:
+        _controller: WucdbmMenuBuilderApiBundle:Menu:get
+        _format: json

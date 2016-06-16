@@ -13,7 +13,7 @@
     "require": {
         "php": "~5.5",
         "wucdbm/wucdbm-bundle": "~3.0.26",
-        "wucdbm/menu-builder-bundle": "~2.8",
+        "wucdbm/menu-builder-bundle": ">=2.8.2",
         "symfony/symfony": "~2.8"
     },
     "autoload": {
