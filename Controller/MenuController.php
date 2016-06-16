@@ -2,14 +2,28 @@
 
 namespace Wucdbm\Bundle\MenuBuilderApiBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Wucdbm\Bundle\MenuBuilderBundle\Entity\MenuItem;
 use Wucdbm\Bundle\WucdbmBundle\Controller\BaseController;
 
 class MenuController extends BaseController {
 
-    public function getAction($id) {
+    public function getAction($id, Request $request) {
+        if ($request->query->get('secret') != $this->container->getParameter('wucdbm_menu_builder_api.secret')) {
+            return $this->json([]);
+        }
+
         $manager = $this->container->get('wucdbm_menu_builder.manager.menus');
+
         $menu = $manager->findOneById($id);
+
+        if (!$menu) {
+            return $this->json([]);
+        }
+
+        if (!$menu->getIsApiVisible()) {
+            return $this->json([]);
+        }
 
         $data = [
             'name' => $menu->getName()
