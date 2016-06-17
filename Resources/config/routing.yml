@@ -3,3 +3,11 @@ wucdbm_menu_builder_api_menu_get:
     defaults:
         _controller: WucdbmMenuBuilderApiBundle:Menu:get
         _format: json
+    requirements:
+        id: \d+
+
+wucdbm_menu_builder_api_menu_get_multi:
+    path:        /{_locale}/get.json
+    defaults:
+        _controller: WucdbmMenuBuilderApiBundle:Menu:multiGet
+        _format: json
