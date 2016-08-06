@@ -22,20 +22,23 @@ class MenuController extends BaseController {
 
         $manager = $this->container->get('wucdbm_menu_builder.manager.menus');
 
-        $menus = [];
-
-        foreach ($ids as $id) {
-            $menu = $manager->findOneById($id);
-            if ($menu) {
-                $menus[] = $menu;
-            }
-        }
-
         $data = [];
 
-        /** @var Menu $menu */
-        foreach ($menus as $menu) {
-            $data[$menu->getId()] = $this->fetchMenu($menu);
+        foreach ($ids as $id) {
+            /** @var Menu $menu */
+            $menu = $manager->findOneById($id);
+
+            if (!$menu) {
+                $data[$id] = [];
+                continue;
+            }
+
+            if (!$menu->getIsApiVisible()) {
+                $data[$id] = [];
+                continue;
+            }
+
+            $data[$id] = $this->fetchMenu($menu);
         }
 
         return $this->json($data);
