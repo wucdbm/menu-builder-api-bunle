@@ -68,7 +68,8 @@ class MenuController extends BaseController {
 
     protected function fetchMenu(Menu $menu) {
         $data = [
-            'name' => $menu->getName()
+            'name'     => $menu->getName(),
+            'modified' => $menu->getDateModified()->format('U')
         ];
 
         /** @var MenuItem $item */
